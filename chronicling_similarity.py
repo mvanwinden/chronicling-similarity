@@ -4,7 +4,7 @@ import itertools
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-parsedChronicles = 'GitHub\parsed_rotterdam_chronicles.ndjson'
+parsedChronicles = 'parsed_rotterdam_chronicles.ndjson'
 
 def shingle(text: str, k: int):
 
