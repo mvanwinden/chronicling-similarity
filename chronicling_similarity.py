@@ -24,9 +24,8 @@ df['date'] = df['date'].astype(str)
 
 df['call_nr'] = df['call_nr'].str.replace('_.*', '', regex= True)
 
-dfDateContents = df.pivot_table(values = 'text', index = 'date', columns = 'call_nr', aggfunc = 'sum', fill_value = np.nan)#.drop('C', axis = 1)
-
-dfDateContentsBack = df.pivot_table(values = 'text', index = 'date', columns = 'call_nr', aggfunc = 'sum', fill_value = 0)#.drop('C', axis = 1)
+dfDateContents = df.pivot_table(values = 'text', index = 'date', columns = 'call_nr', aggfunc = 'sum', fill_value = np.nan)
+dfDateContentsBack = df.pivot_table(values = 'text', index = 'date', columns = 'call_nr', aggfunc = 'sum', fill_value = 0)
 
 dfDateContentsBack[dfDateContentsBack != 0] = 1
 dfDateContentsBack = dfDateContentsBack.astype(int)
@@ -90,22 +89,6 @@ for n in range(len(columnPairs)):
             jSim = [columnPairs[n], date, jaccardSimilarity]
 
             jSimList.append(jSim)
-
-for item in jSimList:
-
-    i = 0 
-    
-    while i < len(item):
-
-        if item[i] == 0:
-
-            item[i] = np.nan
-        
-        if item[i] == 1:
-
-            item[i] = np.nan
-
-        i += 1
 
 for x, y, value in jSimList:
 
