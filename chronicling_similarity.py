@@ -31,7 +31,6 @@ def jaccardSimilarity(contentsClean):
 
     jaccardSimilaritiesDataframe.rename(columns = {col: ", ".join(col) for col in jaccardSimilaritiesDataframe.columns}, inplace = True)
 
-
     jaccardSimilarityList = []
 
     for n in range(len(chroniclePairs)):
@@ -40,17 +39,16 @@ def jaccardSimilarity(contentsClean):
 
             if pd.notna(contentsClean.at[date, chroniclePairs[n][0]]) and pd.notna(contentsClean.at[date, chroniclePairs[n][1]]):
 
-                jSim = []
+                similarity = []
 
                 fileOne = contentsClean.at[date, chroniclePairs[n][0]]
-
                 fileTwo = contentsClean.at[date, chroniclePairs[n][1]]
 
                 jaccardSimilarity = len(fileOne.intersection(fileTwo)) / len(fileOne.union(fileTwo))
 
-                jSim = [chroniclePairs[n], date, jaccardSimilarity]
+                similarity = [chroniclePairs[n], date, jaccardSimilarity]
 
-                jaccardSimilarityList.append(jSim)
+                jaccardSimilarityList.append(similarity)
 
     for x, y, value in jaccardSimilarityList:
 
@@ -59,7 +57,6 @@ def jaccardSimilarity(contentsClean):
         jaccardSimilaritiesDataframe.loc[y, x] = value
 
     jaccardSimilaritiesDataframe.dropna(how = 'all', inplace = True)
-
     jaccardSimilaritiesDataframe = jaccardSimilaritiesDataframe.apply(pd.to_numeric, errors = 'coerce')
 
     return jaccardSimilaritiesDataframe
@@ -75,7 +72,7 @@ def jaccardSimilarityHeatmap(jaccard_similarities):
 
 def main():
 
-    corpus = 'test_corpus.ndjson'
+    corpus = 'parsed_rotterdam_chronicles.ndjson'
     contents = importCorpus(corpus)
     contentsClean = prepareCorpus(contents)
     jaccardSimilarities = jaccardSimilarity(contentsClean)
@@ -85,5 +82,3 @@ def main():
 if __name__ == '__main__':
 
     main()
-    
- 
