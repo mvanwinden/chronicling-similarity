@@ -26,40 +26,25 @@ def prepareCorpus(contents):
 
 def jaccardSimilarity(contentsClean):
 
-    chroniclePairs = list(itertools.combinations(contentsClean.columns, 2))
-
-    jaccardSimilaritiesDataframe = pd.DataFrame(index = contentsClean.index, columns = chroniclePairs)
-
-    jaccardSimilaritiesDataframe.rename(columns = {col: ", ".join(col) for col in jaccardSimilaritiesDataframe.columns}, inplace = True)
-
-    jaccardSimilarityList = []
-
-    for n in range(len(chroniclePairs)):
-
+    pairs = list(itertools.combinations(contentsClean.columns, 2))
+    similarities = []
+    
+    for pair in pairs:
+    
         for date in contentsClean.index:
-
-            if pd.notna(contentsClean.at[date, chroniclePairs[n][0]]) and pd.notna(contentsClean.at[date, chroniclePairs[n][1]]):
-
-                similarity = []
-
-                fileOne = contentsClean.at[date, chroniclePairs[n][0]]
-                fileTwo = contentsClean.at[date, chroniclePairs[n][1]]
-
-                jaccardSimilarity = len(fileOne.intersection(fileTwo)) / len(fileOne.union(fileTwo))
-
-                similarity = [chroniclePairs[n], date, jaccardSimilarity]
-
-                jaccardSimilarityList.append(similarity)
-
-    for x, y, value in jaccardSimilarityList:
-
-        x = ', '.join(x)
-        
-        jaccardSimilaritiesDataframe.loc[y, x] = value
-
-    jaccardSimilaritiesDataframe.dropna(how = 'all', inplace = True)
-    jaccardSimilaritiesDataframe = jaccardSimilaritiesDataframe.apply(pd.to_numeric, errors = 'coerce')
-
+    
+            files = contentsClean.loc[date, list(pair)].dropna()
+    
+            if len(files) == 2:
+    
+                jaccard = len(files.iloc[0].intersection(files.iloc[1])) / len(files.iloc[0].union(files.iloc[1]))
+    
+                similarities.append([', '.join(pair), date, jaccard])
+    
+                jaccardSimilaritiesDataframe = pd.DataFrame(similarities, columns=['Chronicle Pairs', 'Date', 'Jaccard Similarity'])
+    
+    jaccardSimilaritiesDataframe = jaccardSimilaritiesDataframe.pivot_table(values='Jaccard Similarity', index='Date', columns='Chronicle Pairs', aggfunc='sum', fill_value=np.nan)
+    
     return jaccardSimilaritiesDataframe
 
 def jaccardSimilarityHeatmap(jaccard_similarities):
