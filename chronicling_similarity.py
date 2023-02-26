@@ -47,6 +47,16 @@ def jaccardSimilarity(contentsClean):
     
     return jaccardSimilaritiesDataframe
 
+def eventDistributionPlot(contents):
+
+    contents = contents.fillna(0).applymap(lambda x: 1 if x!=0 else 0)
+
+    sns.set(rc={'figure.figsize': (10, 30)})
+    
+    sns.heatmap(contents, cmap = 'Reds', vmin = 0.5, vmax = 1.5, linewidths = 0.5, linecolor = 'black', cbar = False)
+
+    return plt.gcf()
+
 def jaccardSimilarityHeatmap(jaccard_similarities):
 
     sns.set(rc={'figure.figsize': (10, 30)})
@@ -58,12 +68,19 @@ def jaccardSimilarityHeatmap(jaccard_similarities):
 
 def main():
 
-    corpus = 'parsed_rotterdam_chronicles.ndjson'
+    corpus = 'test_corpus.ndjson'
+    
     contents = importCorpus(corpus)
     contentsClean = prepareCorpus(contents)
     jaccardSimilarities = jaccardSimilarity(contentsClean)
+
+    plt.figure()
     heatmap = jaccardSimilarityHeatmap(jaccardSimilarities)
-    plt.show(heatmap)
+    plt.show()
+    
+    plt.figure()
+    distribution = eventDistributionPlot(contents)
+    plt.show()
     
 if __name__ == '__main__':
 
