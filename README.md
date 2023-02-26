@@ -7,3 +7,4 @@ This Python script computes the Jaccard similarity of year descriptions within X
 3. Ensure that you have the required Python libraries installed. These are **pandas**, **numpy**, **seaborn**, and **matplotlib**.
 4. Place the reference file **parsed_rotterdam_chronicles.ndjson** in the same directory as **chronicling_similarity.py**.
 5. Run the script.
+6. Plots of the event distribution and the jaccard similarities will be saved to the directory as a vector image.
