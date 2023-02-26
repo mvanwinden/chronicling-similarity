@@ -3,6 +3,7 @@ import numpy as np
 import seaborn as sns
 import itertools
 import matplotlib.pyplot as plt
+import os
 
 def importCorpus(corpus):
     
@@ -68,19 +69,20 @@ def jaccardSimilarityHeatmap(jaccard_similarities):
 
 def main():
 
-    corpus = 'test_corpus.ndjson'
+    corpus = 'parsed_rotterdam_chronicles.ndjson'
     
     contents = importCorpus(corpus)
     contentsClean = prepareCorpus(contents)
     jaccardSimilarities = jaccardSimilarity(contentsClean)
 
+
     plt.figure()
     heatmap = jaccardSimilarityHeatmap(jaccardSimilarities)
-    plt.show()
+    plt.savefig('jaccard_similarity_heatmap.svg', format='svg', dpi=300, bbox_inches='tight')
     
     plt.figure()
     distribution = eventDistributionPlot(contents)
-    plt.show()
+    plt.savefig('event_distribution_plot.svg', format='svg', dpi=300, bbox_inches='tight')
     
 if __name__ == '__main__':
 
