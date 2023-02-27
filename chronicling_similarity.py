@@ -3,7 +3,6 @@ import numpy as np
 import seaborn as sns
 import itertools
 import matplotlib.pyplot as plt
-import os
 
 def importCorpus(corpus):
     
