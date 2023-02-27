@@ -9,3 +9,6 @@ This Python script computes the Jaccard similarity of year descriptions within X
 5. Run the script.
 
 Plots of the event distribution and the jaccard similarities will be saved to the directory as a vector image.
+
+## Acknowledgements
+The corpus of Rotterdam chronicles was created using an XML-parser developed by the Aarhus University Centre for Humanities Computing, which is available at https://github.com/centre-for-humanities-computing/dutch-chronicles. 
