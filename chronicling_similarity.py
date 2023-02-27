@@ -75,7 +75,6 @@ def main():
     contentsClean = prepareCorpus(contents)
     jaccardSimilarities = jaccardSimilarity(contentsClean)
 
-
     plt.figure()
     heatmap = jaccardSimilarityHeatmap(jaccardSimilarities)
     plt.savefig('jaccard_similarity_heatmap.svg', format='svg', dpi=300, bbox_inches='tight')
