@@ -8,7 +8,7 @@ def importCorpus(corpus):
     
     corpusDataFrame = pd.read_json(corpus, lines=True)
     corpusDataFrame['date'] = corpusDataFrame['date'].str[0].astype(str)
-    contents = corpusDataFrame.pivot_table(values='text', index='date', columns='call_nr', aggfunc='sum', fill_value=np.nan)
+    contents = corpusDataFrame.pivot_table(values = 'text', index = 'date', columns = 'call_nr', aggfunc = 'sum', fill_value=np.nan)
     
     return contents
 
@@ -41,9 +41,9 @@ def jaccardSimilarity(contentsClean):
     
                 similarities.append([', '.join(pair), date, jaccard])
     
-                jaccardSimilaritiesDataframe = pd.DataFrame(similarities, columns=['Chronicle Pairs', 'Date', 'Jaccard Similarity'])
+                jaccardSimilaritiesDataframe = pd.DataFrame(similarities, columns = ['Chronicle Pairs', 'Date', 'Jaccard Similarity'])
     
-    jaccardSimilaritiesDataframe = jaccardSimilaritiesDataframe.pivot_table(values='Jaccard Similarity', index='Date', columns='Chronicle Pairs', aggfunc='sum', fill_value=np.nan)
+    jaccardSimilaritiesDataframe = jaccardSimilaritiesDataframe.pivot_table(values = 'Jaccard Similarity', index = 'Date', columns = 'Chronicle Pairs', aggfunc = 'sum', fill_value = np.nan)
     
     return jaccardSimilaritiesDataframe
 
@@ -60,7 +60,7 @@ def eventDistributionPlot(contents):
 def jaccardSimilarityHeatmap(jaccard_similarities):
 
     sns.set(rc={'figure.figsize': (10, 30)})
-    sns.heatmap(jaccard_similarities, cmap=sns.cm.rocket_r, vmin=0, vmax=1, linewidths=0.0, linecolor='black', annot=False)
+    sns.heatmap(jaccard_similarities, cmap=sns.cm.rocket_r, vmin = 0, vmax = 1)
     plt.title('Jaccard Similarities Heat Map')
     plt.xlabel('Chronicle pairs')
     plt.ylabel('Year')
@@ -76,11 +76,11 @@ def main():
 
     plt.figure()
     heatmap = jaccardSimilarityHeatmap(jaccardSimilarities)
-    plt.savefig('jaccard_similarity_heatmap.svg', format='svg', dpi=300, bbox_inches='tight')
+    plt.savefig('jaccard_similarity_heatmap.svg', format = 'svg', dpi = 300, bbox_inches = 'tight')
     
     plt.figure()
     distribution = eventDistributionPlot(contents)
-    plt.savefig('event_distribution_plot.svg', format='svg', dpi=300, bbox_inches='tight')
+    plt.savefig('event_distribution_plot.svg', format='svg', dpi = 300, bbox_inches = 'tight')
     
 if __name__ == '__main__':
 
