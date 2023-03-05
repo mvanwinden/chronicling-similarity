@@ -1,5 +1,5 @@
 pandas
 numpy
 seaborn
-itertools
+more-itertools
 matplotlib
