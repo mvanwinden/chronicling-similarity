@@ -2,7 +2,7 @@
 This Python script computes the Jaccard similarity of year descriptions within XML-parsed chronicles. For demonstration purposes, this repository contains a corpus of five seventeenth-century Rotterdam chronicles. 
 
 ## Usage
-```
+```bash
 git clone https://github.com/mvanwinden/chronicling-similarity
 cd chronicling-similarity
 pip install -r requirements.txt
