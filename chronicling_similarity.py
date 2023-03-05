@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 def importCorpus(corpus):
     
     corpusDataFrame = pd.read_json(corpus, lines=True)
-    corpusDataFrame['date'] = corpusDataFrame['date'].str[0].astype(str)
+    corpusDataFrame['date'] = corpusDataFrame['date'].str[0].astype(str).replace('-.*', '', regex= True)
     contents=corpusDataFrame.pivot_table(values='text', index='date', columns='call_nr', aggfunc='sum', fill_value=np.nan)
     
     return contents
@@ -60,7 +60,7 @@ def eventDistributionPlot(contents):
 def jaccardSimilarityHeatmap(jaccard_similarities):
 
     sns.set(rc={'figure.figsize': (10, 30)})
-    sns.heatmap(jaccard_similarities, cmap=sns.cm.rocket_r, vmin=0, vmax=1, linewidths=0.0, linecolor='black', annot=False)
+    sns.heatmap(jaccard_similarities, cmap=sns.cm.rocket_r, vmin=0, vmax=1, linewidths=0.5, linecolor='black', annot=False)
     plt.title('Jaccard Similarities Heat Map')
     plt.xlabel('Chronicle pairs')
     plt.ylabel('Year')
@@ -73,15 +73,14 @@ def main():
     contents = importCorpus(corpus)
     contentsClean = prepareCorpus(contents)
     jaccardSimilarities = jaccardSimilarity(contentsClean)
-
-
-    plt.figure()
-    heatmap = jaccardSimilarityHeatmap(jaccardSimilarities)
-    plt.savefig('jaccard_similarity_heatmap.svg', format='svg', dpi=300, bbox_inches='tight')
     
-    plt.figure()
+    plt.figure(figsize=(5, 60))
     distribution = eventDistributionPlot(contents)
     plt.savefig('event_distribution_plot.svg', format='svg', dpi=300, bbox_inches='tight')
+
+    plt.figure(figsize=(10, 60))
+    heatmap = jaccardSimilarityHeatmap(jaccardSimilarities)
+    plt.savefig('jaccard_similarity_heatmap.svg', format='svg', dpi=300, bbox_inches='tight')
     
 if __name__ == '__main__':
 
