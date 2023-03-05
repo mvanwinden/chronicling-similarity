@@ -4,7 +4,7 @@ This Python script computes the Jaccard similarity of year descriptions within X
 ## Usage
 1. Clone or download the repository to your local machine.
 2. Navigate to the directory where the repository is located.
-3. Ensure that you have the required Python libraries installed. These are **pandas**, **numpy**, **seaborn**, and **matplotlib**.
+3. Install the required Python libraries in **requirements.txt**.
 4. Ensure the reference file **parsed_rotterdam_chronicles.ndjson** is located in the same directory as **chronicling_similarity.py**.
 5. Run the script.
 
