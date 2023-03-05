@@ -60,7 +60,7 @@ def eventDistributionPlot(contents):
 def jaccardSimilarityHeatmap(jaccard_similarities):
 
     sns.set(rc={'figure.figsize': (10, 30)})
-    sns.heatmap(jaccard_similarities, cmap=sns.cm.rocket_r, vmin=0, vmax=1, linewidths=0.5, linecolor='black', annot=False)
+    sns.heatmap(jaccard_similarities, cmap=sns.cm.rocket_r, vmin=0, vmax=1, linewidths=0.5, linecolor='black', annot=True)
     plt.title('Jaccard Similarities Heat Map')
     plt.xlabel('Chronicle pairs')
     plt.ylabel('Year')
